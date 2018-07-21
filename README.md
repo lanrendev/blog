@@ -40,3 +40,7 @@ hexo new post 'title name'
 ```sh
 ./publish.sh
 ```
+
+## Attension
+
+**所有的操作都在 `master` 分支下进行**
