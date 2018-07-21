@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="问题描述用 Vue 开发一个 HTML5 活动页面，活动页面需要一个循环播放的背景音乐，一进入页面就自动播放。按照正常思维，直接插入 audio 元素，设置好属性就算完了。就像下面这样： 1&amp;lt;audio src=&quot;path/to/music&quot; loop autoplay&amp;gt;&amp;lt;/audio&amp;gt; 这样多简单啊，在 PC 浏览器上也表现正常。拿到手机上测试一下，才发现根本不出声音。问">
+<meta name="keywords" content="Vue,audio,HTML5,mobile">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决Vue项目中audio元素在移动端无法自动播放的问题">
+<meta property="og:url" content="/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/index.html">
+<meta property="og:site_name" content="LANRENDEV">
+<meta property="og:description" content="问题描述用 Vue 开发一个 HTML5 活动页面，活动页面需要一个循环播放的背景音乐，一进入页面就自动播放。按照正常思维，直接插入 audio 元素，设置好属性就算完了。就像下面这样： 1&amp;lt;audio src=&quot;path/to/music&quot; loop autoplay&amp;gt;&amp;lt;/audio&amp;gt; 这样多简单啊，在 PC 浏览器上也表现正常。拿到手机上测试一下，才发现根本不出声音。问">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-07-09T01:39:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决Vue项目中audio元素在移动端无法自动播放的问题">
+<meta name="twitter:description" content="问题描述用 Vue 开发一个 HTML5 活动页面，活动页面需要一个循环播放的背景音乐，一进入页面就自动播放。按照正常思维，直接插入 audio 元素，设置好属性就算完了。就像下面这样： 1&amp;lt;audio src=&quot;path/to/music&quot; loop autoplay&amp;gt;&amp;lt;/audio&amp;gt; 这样多简单啊，在 PC 浏览器上也表现正常。拿到手机上测试一下，才发现根本不出声音。问">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/blog/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/blog/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>解决Vue项目中audio元素在移动端无法自动播放的问题</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/blog/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/blog/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/blog/">Home</a></li>
+         
+          <li><a href="/blog/about/">About</a></li>
+         
+          <li><a href="/blog/archives/">Writing</a></li>
+         
+          <li><a href="/blog/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/blog/2018/07/20/微信公众号问题记录（一）/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&text=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&title=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&is_video=false&description=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=解决Vue项目中audio元素在移动端无法自动播放的问题&body=Check out this article: /2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&title=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&title=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&title=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&title=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&name=解决Vue项目中audio元素在移动端无法自动播放的问题&description=&lt;h2 id=&#34;问题描述&#34;&gt;&lt;a href=&#34;#问题描述&#34; class=&#34;headerlink&#34; title=&#34;问题描述&#34;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;用 Vue 开发一个 HTML5 活动页面，活动页面需要一个循环播放的背景音乐，一进入页面就自动播放。按照正常思维，直接插入 &lt;code&gt;audio&lt;/code&gt; 元素，设置好属性就算完了。就像下面这样：&lt;/p&gt;
+&lt;figure class=&#34;highlight html&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;audio&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;src&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&#34;path/to/music&#34;&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;loop&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;autoplay&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;audio&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这样多简单啊，在 PC 浏览器上也表现正常。拿到手机上测试一下，才发现根本不出声音。问题就来了，为啥在手机上不能自动播放呢。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#探索过程"><span class="toc-number">2.</span> <span class="toc-text">探索过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法（不彻底）"><span class="toc-number">3.</span> <span class="toc-text">解决方法（不彻底）</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        解决Vue项目中audio元素在移动端无法自动播放的问题
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">LANRENDEV</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-03-30T02:15:12.000Z" itemprop="datePublished">2018-03-30</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/blog/tags/HTML5/">HTML5</a>, <a class="tag-link" href="/blog/tags/Vue/">Vue</a>, <a class="tag-link" href="/blog/tags/audio/">audio</a>, <a class="tag-link" href="/blog/tags/mobile/">mobile</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>用 Vue 开发一个 HTML5 活动页面，活动页面需要一个循环播放的背景音乐，一进入页面就自动播放。按照正常思维，直接插入 <code>audio</code> 元素，设置好属性就算完了。就像下面这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">src</span>=<span class="string">"path/to/music"</span> <span class="attr">loop</span> <span class="attr">autoplay</span>&gt;</span><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样多简单啊，在 PC 浏览器上也表现正常。拿到手机上测试一下，才发现根本不出声音。问题就来了，为啥在手机上不能自动播放呢。</p>
+<a id="more"></a>
+<h2 id="探索过程"><a href="#探索过程" class="headerlink" title="探索过程"></a>探索过程</h2><p>使用 google 大法了解到，移动设备为了节省流量，禁用了 <code>audio</code> 元素的自动播放的功能。必须要有用户交互才能播放音频，比如说 <code>touchstart</code> 事件。</p>
+<p>了解到这个重要信息，马上也就可以找到相应的解决办法，那就是模拟 <code>touchstart</code> 事件啦，然后把这个事件的触发放到 Vue 的生命周期方法中，比如 <code>mounted</code>。</p>
+<p>因此马上就做一个音频播放器的组件 <code>AudioPlayer.vue</code> 的组件，具体代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"player"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">"player-cd"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">"trigger"</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">audio</span></span></span><br><span class="line"><span class="tag">        <span class="attr">:src</span>=<span class="string">"src"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">id</span>=<span class="string">"audio"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">loop</span></span></span><br><span class="line"><span class="tag">      &gt;</span><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">export default &#123;</span></span><br><span class="line"><span class="undefined">  data () &#123;</span></span><br><span class="line"><span class="undefined">    return &#123;</span></span><br><span class="line"><span class="undefined">      src: 'http://o9o8lcfa3.bkt.clouddn.com/%E5%88%9A%E5%A5%BD%E9%81%87%E8%A7%81%E4%BD%A0.m4a'</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  mounted () &#123;</span></span><br><span class="line"><span class="undefined">    let trigger = document.getElementById('trigger')</span></span><br><span class="line"><span class="undefined">    let audio = document.getElementById('audio')</span></span><br><span class="line"><span class="undefined">    trigger.addEventListener('touchstart', () =&gt; &#123;</span></span><br><span class="line"><span class="undefined">      audio.play()</span></span><br><span class="line"><span class="undefined">    &#125;)</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    // 模拟触发 「touchstart」 事件</span></span><br><span class="line"><span class="undefined">    this.createTouchstartEventAndDispatch(trigger)</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    createTouchstartEventAndDispatch (el) &#123;</span></span><br><span class="line"><span class="undefined">      let event = document.createEvent('Events')</span></span><br><span class="line"><span class="undefined">      event.initEvent('touchstart', true, true)</span></span><br><span class="line"><span class="undefined">      el.dispatchEvent(event)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"less"</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">// var</span></span><br><span class="line"><span class="undefined">@cdWidth: 50vmin;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">// mixins</span></span><br><span class="line"><span class="undefined">// 水平垂直居中的 flex 布局</span></span><br><span class="line"><span class="undefined">.flex-align-justify-center &#123;</span></span><br><span class="line"><span class="undefined">  display: flex;</span></span><br><span class="line"><span class="undefined">  align-items: center;</span></span><br><span class="line"><span class="undefined">  justify-content: center;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">// 直径为 width 的圆</span></span><br><span class="line"><span class="undefined">.circle (@width) &#123;</span></span><br><span class="line"><span class="undefined">  width: @width;</span></span><br><span class="line"><span class="undefined">  height: @width;</span></span><br><span class="line"><span class="undefined">  border-radius: 50%;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">// block 伪类</span></span><br><span class="line"><span class="undefined">.absolute-block &#123;</span></span><br><span class="line"><span class="undefined">  content: '';</span></span><br><span class="line"><span class="undefined">  display: block;</span></span><br><span class="line"><span class="undefined">  position: absolute;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">.player &#123;</span></span><br><span class="line"><span class="undefined">  .flex-align-justify-center;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  width: 100vw;</span></span><br><span class="line"><span class="undefined">  height: 100vh;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  &amp;-cd &#123;</span></span><br><span class="line"><span class="undefined">    .flex-align-justify-center;</span></span><br><span class="line"><span class="undefined">    .circle(@cdWidth);</span></span><br><span class="line"><span class="undefined">    background: linear-gradient(#666, #000);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .absolute-circle-block (@color, @width) &#123;</span></span><br><span class="line"><span class="undefined">      .absolute-block;</span></span><br><span class="line"><span class="undefined">      .circle(@width);</span></span><br><span class="line"><span class="undefined">      background: @color;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    &amp;::before &#123;</span></span><br><span class="line"><span class="undefined">      .absolute-circle-block(darken(#f00, 5%), 20vmin);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    &amp;::after &#123;</span></span><br><span class="line"><span class="undefined">      .absolute-circle-block(#222, 5vmin);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>去浏览器预览的时候发现，上面的代码在 PC 和 Android 手机上和预期一样，可以自动播放。但是在 iOS 上依然不行。通过更进一步的了解，发现在微信内置浏览器内有一种解决办法，利用的是微信内置浏览器的事件 <code>WeixinJSBridgeReady</code>。具体实现见下一小节。</p>
+<h2 id="解决方法（不彻底）"><a href="#解决方法（不彻底）" class="headerlink" title="解决方法（不彻底）"></a>解决方法（不彻底）</h2><p>目前自动播放功能实现情况如下：</p>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>系统自带浏览器</th>
+<th>微信内置浏览器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PC</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>Android</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>iOS</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+</tbody>
+</table>
+<p>在实现上述功能的基础上，增加播放旋转，点击切换播放、暂停功能。最终组件代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"player"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">"player-cd"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">"trigger"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:style</span>=<span class="string">"&#123;transform: 'rotate(' + transformValue + 'deg)'&#125;"</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">audio</span></span></span><br><span class="line"><span class="tag">        <span class="attr">:src</span>=<span class="string">"src"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">id</span>=<span class="string">"audio"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">loop</span></span></span><br><span class="line"><span class="tag">      &gt;</span><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">export default &#123;</span></span><br><span class="line"><span class="undefined">  data () &#123;</span></span><br><span class="line"><span class="undefined">    return &#123;</span></span><br><span class="line"><span class="undefined">      src: 'http://o9o8lcfa3.bkt.clouddn.com/%E5%88%9A%E5%A5%BD%E9%81%87%E8%A7%81%E4%BD%A0.m4a',</span></span><br><span class="line"><span class="undefined">      playing: false,</span></span><br><span class="line"><span class="undefined">      transformValue: 10,</span></span><br><span class="line"><span class="undefined">      transformInterval: null</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  mounted () &#123;</span></span><br><span class="line"><span class="undefined">    let trigger = document.getElementById('trigger')</span></span><br><span class="line"><span class="undefined">    let audio = document.getElementById('audio')</span></span><br><span class="line"><span class="undefined">    trigger.addEventListener('touchstart', () =&gt; &#123;</span></span><br><span class="line"><span class="undefined">      audio.play()</span></span><br><span class="line"><span class="undefined">      this.togglePlay()</span></span><br><span class="line"><span class="undefined">    &#125;)</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    // 单独处理微信内置浏览器自动播放</span></span><br><span class="line"><span class="undefined">    document.addEventListener('WeixinJSBridgeReady', () =&gt; &#123;</span></span><br><span class="line"><span class="undefined">      audio.play()</span></span><br><span class="line"><span class="undefined">    &#125;, false)</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    // 模拟触发 「touchstart」 事件</span></span><br><span class="line"><span class="undefined">    this.createTouchstartEventAndDispatch(trigger)</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    createTouchstartEventAndDispatch (el) &#123;</span></span><br><span class="line"><span class="undefined">      let event = document.createEvent('Events')</span></span><br><span class="line"><span class="undefined">      event.initEvent('touchstart', true, true)</span></span><br><span class="line"><span class="undefined">      el.dispatchEvent(event)</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    togglePlay () &#123;</span></span><br><span class="line"><span class="undefined">      this.playing = !this.playing</span></span><br><span class="line"><span class="undefined">      if (this.playing) &#123;</span></span><br><span class="line"><span class="undefined">        this.transformInterval = setInterval(</span></span><br><span class="line"><span class="undefined">          () =&gt; this.changeTransformValue(),</span></span><br><span class="line"><span class="undefined">          100</span></span><br><span class="line"><span class="undefined">        )</span></span><br><span class="line"><span class="undefined">      &#125; else &#123;</span></span><br><span class="line"><span class="undefined">        clearInterval(this.transformInterval)</span></span><br><span class="line"><span class="undefined">        this.transformInterval = null</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    changeTransformValue () &#123;</span></span><br><span class="line"><span class="undefined">      this.transformValue += 10</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  watch: &#123;</span></span><br><span class="line"><span class="undefined">    playing (playing) &#123;</span></span><br><span class="line"><span class="undefined">      let audio = document.getElementById('audio')</span></span><br><span class="line"><span class="undefined">      if (playing) &#123;</span></span><br><span class="line"><span class="undefined">        audio.play()</span></span><br><span class="line"><span class="undefined">      &#125; else &#123;</span></span><br><span class="line"><span class="undefined">        audio.pause()</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"less"</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">// var</span></span><br><span class="line"><span class="undefined">@cdWidth: 50vmin;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">// mixins</span></span><br><span class="line"><span class="undefined">// 水平垂直居中的 flex 布局</span></span><br><span class="line"><span class="undefined">.flex-align-justify-center &#123;</span></span><br><span class="line"><span class="undefined">  display: flex;</span></span><br><span class="line"><span class="undefined">  align-items: center;</span></span><br><span class="line"><span class="undefined">  justify-content: center;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">// 直径为 width 的圆</span></span><br><span class="line"><span class="undefined">.circle (@width) &#123;</span></span><br><span class="line"><span class="undefined">  width: @width;</span></span><br><span class="line"><span class="undefined">  height: @width;</span></span><br><span class="line"><span class="undefined">  border-radius: 50%;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">// block 伪类</span></span><br><span class="line"><span class="undefined">.absolute-block &#123;</span></span><br><span class="line"><span class="undefined">  content: '';</span></span><br><span class="line"><span class="undefined">  display: block;</span></span><br><span class="line"><span class="undefined">  position: absolute;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">.player &#123;</span></span><br><span class="line"><span class="undefined">  .flex-align-justify-center;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  width: 100vw;</span></span><br><span class="line"><span class="undefined">  height: 100vh;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  &amp;-cd &#123;</span></span><br><span class="line"><span class="undefined">    .flex-align-justify-center;</span></span><br><span class="line"><span class="undefined">    .circle(@cdWidth);</span></span><br><span class="line"><span class="undefined">    background: linear-gradient(#666, #000);</span></span><br><span class="line"><span class="undefined">    transition: all .2s linear;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .absolute-circle-block (@color, @width) &#123;</span></span><br><span class="line"><span class="undefined">      .absolute-block;</span></span><br><span class="line"><span class="undefined">      .circle(@width);</span></span><br><span class="line"><span class="undefined">      background: @color;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    &amp;::before &#123;</span></span><br><span class="line"><span class="undefined">      .absolute-circle-block(darken(#f00, 5%), 20vmin);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    &amp;::after &#123;</span></span><br><span class="line"><span class="undefined">      .absolute-circle-block(#222, 5vmin);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>附上线上<a href="https://codepen.io/ricosmall/pen/qoYjOP" target="_blank" rel="noopener">预览地址</a></p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/blog/">Home</a></li>
+         
+          <li><a href="/blog/about/">About</a></li>
+         
+          <li><a href="/blog/archives/">Writing</a></li>
+         
+          <li><a href="/blog/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#探索过程"><span class="toc-number">2.</span> <span class="toc-text">探索过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法（不彻底）"><span class="toc-number">3.</span> <span class="toc-text">解决方法（不彻底）</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&text=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&title=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&is_video=false&description=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=解决Vue项目中audio元素在移动端无法自动播放的问题&body=Check out this article: /2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&title=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&title=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&title=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&title=解决Vue项目中audio元素在移动端无法自动播放的问题"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/&name=解决Vue项目中audio元素在移动端无法自动播放的问题&description=&lt;h2 id=&#34;问题描述&#34;&gt;&lt;a href=&#34;#问题描述&#34; class=&#34;headerlink&#34; title=&#34;问题描述&#34;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;用 Vue 开发一个 HTML5 活动页面，活动页面需要一个循环播放的背景音乐，一进入页面就自动播放。按照正常思维，直接插入 &lt;code&gt;audio&lt;/code&gt; 元素，设置好属性就算完了。就像下面这样：&lt;/p&gt;
+&lt;figure class=&#34;highlight html&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;audio&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;src&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&#34;path/to/music&#34;&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;loop&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;autoplay&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;audio&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这样多简单啊，在 PC 浏览器上也表现正常。拿到手机上测试一下，才发现根本不出声音。问题就来了，为啥在手机上不能自动播放呢。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 lrts
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/blog/">Home</a></li>
+         
+          <li><a href="/blog/about/">About</a></li>
+         
+          <li><a href="/blog/archives/">Writing</a></li>
+         
+          <li><a href="/blog/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/blog/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/blog/lib/jquery/jquery.min.js"></script>
+<script src="/blog/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/blog/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
