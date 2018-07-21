@@ -272,4 +272,4 @@ export default {
 </style>
 ```
 
-附上线上[预览地址](https://codepen.io/ricosmall/pen/qoYjOP)
+附上 Codepen [预览地址](https://codepen.io/ricosmall/pen/qoYjOP)
