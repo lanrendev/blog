@@ -9,6 +9,7 @@ hexo g -d
 
 # 源文件提交到 master 分支
 git add .
-date='$(date +%Y-%m-%d\ %H:%M:%S)'
-git commit -m 'New post: $date'
+message="New post: $(date +%Y-%m-%d\ %H:%M:%S)"
+echo $message
+git commit -m "$message"
 git push origin master
