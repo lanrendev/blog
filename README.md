@@ -15,7 +15,9 @@ git clone git@github.com:lanrendev/blog.git
 ```sh
 yarn
 
-# 或者 npm install
+# or
+
+npm install
 ```
 
 3.准备本地环境
