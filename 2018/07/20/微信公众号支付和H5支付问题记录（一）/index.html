@@ -9,21 +9,21 @@
     <meta name="description" content="问题描述开发项目的过程中发现，微信支付分很多种，其中两种是本次会提到的：H5 支付和公众号支付。在微信外面打开的网页可以用H5 支付，在微信里面打开该网页的时候只能使用公众号支付。">
 <meta name="keywords" content="公众号支付,Vue,JSAPI">
 <meta property="og:type" content="article">
-<meta property="og:title" content="微信公众号问题记录（一）">
-<meta property="og:url" content="/2018/07/20/微信公众号问题记录（一）/index.html">
+<meta property="og:title" content="微信公众号支付和H5支付问题记录（一）">
+<meta property="og:url" content="/2018/07/20/微信公众号支付和H5支付问题记录（一）/index.html">
 <meta property="og:site_name" content="LANRENDEV">
 <meta property="og:description" content="问题描述开发项目的过程中发现，微信支付分很多种，其中两种是本次会提到的：H5 支付和公众号支付。在微信外面打开的网页可以用H5 支付，在微信里面打开该网页的时候只能使用公众号支付。">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/27197160.jpg">
-<meta property="og:image" content="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/667058.jpg">
-<meta property="og:image" content="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/43053749.jpg">
-<meta property="og:image" content="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/19805189.jpg">
-<meta property="og:image" content="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/68276262.jpg">
-<meta property="og:updated_time" content="2018-07-21T09:47:28.000Z">
+<meta property="og:image" content="http://img.ricosmall.xyz/18-7-20/27197160.jpg">
+<meta property="og:image" content="http://img.ricosmall.xyz/18-7-20/667058.jpg">
+<meta property="og:image" content="http://img.ricosmall.xyz/18-7-20/43053749.jpg">
+<meta property="og:image" content="http://img.ricosmall.xyz/18-7-20/19805189.jpg">
+<meta property="og:image" content="http://img.ricosmall.xyz/18-7-20/68276262.jpg">
+<meta property="og:updated_time" content="2019-03-15T01:36:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="微信公众号问题记录（一）">
+<meta name="twitter:title" content="微信公众号支付和H5支付问题记录（一）">
 <meta name="twitter:description" content="问题描述开发项目的过程中发现，微信支付分很多种，其中两种是本次会提到的：H5 支付和公众号支付。在微信外面打开的网页可以用H5 支付，在微信里面打开该网页的时候只能使用公众号支付。">
-<meta name="twitter:image" content="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/27197160.jpg">
+<meta name="twitter:image" content="http://img.ricosmall.xyz/18-7-20/27197160.jpg">
     
     
         
@@ -43,7 +43,7 @@
         
     
     <!-- title -->
-    <title>微信公众号问题记录（一）</title>
+    <title>微信公众号支付和H5支付问题记录（一）</title>
     <!-- styles -->
     <link rel="stylesheet" href="/blog/css/style.css">
     <!-- persian styles -->
@@ -82,7 +82,7 @@
         <li><a class="icon" href="/blog/2018/09/13/解决Nuxt项目中发生在服务端的请求丢失Cookie的问题/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/blog/2018/07/20/微信公众号支付问题记录（一）/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/blog/2018/03/30/解决Vue项目中audio元素在移动端无法自动播放的问题/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -95,16 +95,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=/2018/07/20/微信公众号问题记录（一）/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=/2018/07/20/微信公众号问题记录（一）/&text=微信公众号问题记录（一）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=/2018/07/20/微信公众号问题记录（一）/&title=微信公众号问题记录（一）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=/2018/07/20/微信公众号问题记录（一）/&is_video=false&description=微信公众号问题记录（一）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=微信公众号问题记录（一）&body=Check out this article: /2018/07/20/微信公众号问题记录（一）/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=/2018/07/20/微信公众号问题记录（一）/&title=微信公众号问题记录（一）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=/2018/07/20/微信公众号问题记录（一）/&title=微信公众号问题记录（一）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=/2018/07/20/微信公众号问题记录（一）/&title=微信公众号问题记录（一）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=/2018/07/20/微信公众号问题记录（一）/&title=微信公众号问题记录（一）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=/2018/07/20/微信公众号问题记录（一）/&name=微信公众号问题记录（一）&description=&lt;h2 id=&#34;问题描述&#34;&gt;&lt;a href=&#34;#问题描述&#34; class=&#34;headerlink&#34; title=&#34;问题描述&#34;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;开发项目的过程中发现，微信支付分很多种，其中两种是本次会提到的：&lt;code&gt;H5 支付&lt;/code&gt;和&lt;code&gt;公众号支付&lt;/code&gt;。在微信外面打开的网页可以用&lt;code&gt;H5 支付&lt;/code&gt;，在微信里面打开该网页的时候只能使用&lt;code&gt;公众号支付&lt;/code&gt;。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=/2018/07/20/微信公众号支付和H5支付问题记录（一）/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&text=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&title=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&is_video=false&description=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=微信公众号支付和H5支付问题记录（一）&body=Check out this article: /2018/07/20/微信公众号支付和H5支付问题记录（一）/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&title=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&title=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&title=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&title=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&name=微信公众号支付和H5支付问题记录（一）&description=&lt;h2 id=&#34;问题描述&#34;&gt;&lt;a href=&#34;#问题描述&#34; class=&#34;headerlink&#34; title=&#34;问题描述&#34;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;开发项目的过程中发现，微信支付分很多种，其中两种是本次会提到的：&lt;code&gt;H5 支付&lt;/code&gt;和&lt;code&gt;公众号支付&lt;/code&gt;。在微信外面打开的网页可以用&lt;code&gt;H5 支付&lt;/code&gt;，在微信里面打开该网页的时候只能使用&lt;code&gt;公众号支付&lt;/code&gt;。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -121,7 +121,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        微信公众号问题记录（一）
+        微信公众号支付和H5支付问题记录（一）
     </h1>
 
 
@@ -156,7 +156,7 @@
 <p>redirect_uri 域名与后台配置不一致，错误码：10003</p>
 </blockquote>
 <p>错误截图：</p>
-<p><img src="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/27197160.jpg" alt="redirect_uri 错误"></p>
+<p><img src="http://img.ricosmall.xyz/18-7-20/27197160.jpg" alt="redirect_uri 错误"></p>
 <p>问题原因及解决办法：</p>
 <p>获取 openid 需要重定向到微信的链接地址，格式如下：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE<span class="comment">#wechat_redirect</span></span><br></pre></td></tr></table></figure>
@@ -168,7 +168,7 @@
 <p>不支持开放平台 Appid，请使用公众号 Appid，错误代码：10016</p>
 </blockquote>
 <p>错误截图：</p>
-<p><img src="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/667058.jpg" alt="不支持开放平台 Appid"></p>
+<p><img src="http://img.ricosmall.xyz/18-7-20/667058.jpg" alt="不支持开放平台 Appid"></p>
 <p>问题原因及解决办法：</p>
 <p>上一个问题中，重定向到微信的地址时需要填写 appid 的参数，这个参数一定要用公众号的 appid。</p>
 <h2 id="调用公众号支付失败"><a href="#调用公众号支付失败" class="headerlink" title="调用公众号支付失败"></a>调用公众号支付失败</h2><h3 id="调用支付-JSAPI-缺少参数"><a href="#调用支付-JSAPI-缺少参数" class="headerlink" title="调用支付 JSAPI 缺少参数"></a>调用支付 JSAPI 缺少参数</h3><p>错误信息：</p>
@@ -176,7 +176,7 @@
 <p>调用支付 JSAPI 缺少参数：total_fee</p>
 </blockquote>
 <p>错误截图：</p>
-<p><img src="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/43053749.jpg" alt="调用支付 JSAPI 缺少参数"></p>
+<p><img src="http://img.ricosmall.xyz/18-7-20/43053749.jpg" alt="调用支付 JSAPI 缺少参数"></p>
 <p>问题原因及解决办法：</p>
 <p>官方调用支付 JSAPI 示例如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onBridgeReady</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    WeixinJSBridge.invoke(</span><br><span class="line">        <span class="string">'getBrandWCPayRequest'</span>, &#123;</span><br><span class="line">            <span class="string">"appId"</span>:<span class="string">"wx2421b1c4370ec43b"</span>,                        <span class="comment">//公众号名称，由商户传入</span></span><br><span class="line">            <span class="string">"timeStamp"</span>:<span class="string">"1395712654"</span>,                            <span class="comment">//时间戳，自1970年以来的秒数</span></span><br><span class="line">            <span class="string">"nonceStr"</span>:<span class="string">"e61463f8efa94090b1f366cccfbbb444"</span>,       <span class="comment">//随机串</span></span><br><span class="line">            <span class="string">"package"</span>:<span class="string">"prepay_id=u802345jgfjsdfgsdg888"</span>,</span><br><span class="line">            <span class="string">"signType"</span>:<span class="string">"MD5"</span>,                                    <span class="comment">//微信签名方式：</span></span><br><span class="line">            <span class="string">"paySign"</span>:<span class="string">"70EA570631E4BB79628FBCA90534C63FF7FADD89"</span> <span class="comment">//微信签名</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(res.err_msg == <span class="string">"get_brand_wcpay_request:ok"</span> )&#123;</span><br><span class="line">            <span class="comment">// 使用以上方式判断前端返回,微信团队郑重提示：</span></span><br><span class="line">            <span class="comment">// res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> WeixinJSBridge == <span class="string">"undefined"</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.addEventListener) &#123;</span><br><span class="line">        <span class="built_in">document</span>.addEventListener(<span class="string">'WeixinJSBridgeReady'</span>, onBridgeReady, <span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.attachEvent) &#123;</span><br><span class="line">        <span class="built_in">document</span>.attachEvent(<span class="string">'WeixinJSBridgeReady'</span>, onBridgeReady);</span><br><span class="line">        <span class="built_in">document</span>.attachEvent(<span class="string">'onWeixinJSBridgeReady'</span>, onBridgeReady);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    onBridgeReady();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -186,7 +186,7 @@
 <p>商户传入的 appid 参数不正确，请联系商户处理。</p>
 </blockquote>
 <p>错误截图：</p>
-<p><img src="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/19805189.jpg" alt="商户传入的 appid 参数不正确"></p>
+<p><img src="http://img.ricosmall.xyz/18-7-20/19805189.jpg" alt="商户传入的 appid 参数不正确"></p>
 <p>错误原因及解决办法：</p>
 <p>这种情况一般是后端用错了 appid 导致，可能是后端错误地用成了开放平台的 appid 导致。此处采用的是公众号支付，因此一定要传公众号的 appid。</p>
 <h3 id="支付验证签名失败"><a href="#支付验证签名失败" class="headerlink" title="支付验证签名失败"></a>支付验证签名失败</h3><p>错误信息：</p>
@@ -194,7 +194,7 @@
 <p>支付验证签名失败。</p>
 </blockquote>
 <p>错误截图：</p>
-<p><img src="http://o9o8lcfa3.bkt.clouddn.com/18-7-20/68276262.jpg" alt="支付验证签名失败"></p>
+<p><img src="http://img.ricosmall.xyz/18-7-20/68276262.jpg" alt="支付验证签名失败"></p>
 <p>错误原因及解决办法：</p>
 <p>这种情况就是签名算法的问题。微信开放平台支付的签名算法和公众号支付的签名算法是不同的，表现在以下两个方面：</p>
 <ul>
@@ -233,16 +233,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=/2018/07/20/微信公众号问题记录（一）/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=/2018/07/20/微信公众号问题记录（一）/&text=微信公众号问题记录（一）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=/2018/07/20/微信公众号问题记录（一）/&title=微信公众号问题记录（一）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=/2018/07/20/微信公众号问题记录（一）/&is_video=false&description=微信公众号问题记录（一）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=微信公众号问题记录（一）&body=Check out this article: /2018/07/20/微信公众号问题记录（一）/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=/2018/07/20/微信公众号问题记录（一）/&title=微信公众号问题记录（一）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=/2018/07/20/微信公众号问题记录（一）/&title=微信公众号问题记录（一）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=/2018/07/20/微信公众号问题记录（一）/&title=微信公众号问题记录（一）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=/2018/07/20/微信公众号问题记录（一）/&title=微信公众号问题记录（一）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=/2018/07/20/微信公众号问题记录（一）/&name=微信公众号问题记录（一）&description=&lt;h2 id=&#34;问题描述&#34;&gt;&lt;a href=&#34;#问题描述&#34; class=&#34;headerlink&#34; title=&#34;问题描述&#34;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;开发项目的过程中发现，微信支付分很多种，其中两种是本次会提到的：&lt;code&gt;H5 支付&lt;/code&gt;和&lt;code&gt;公众号支付&lt;/code&gt;。在微信外面打开的网页可以用&lt;code&gt;H5 支付&lt;/code&gt;，在微信里面打开该网页的时候只能使用&lt;code&gt;公众号支付&lt;/code&gt;。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=/2018/07/20/微信公众号支付和H5支付问题记录（一）/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&text=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&title=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&is_video=false&description=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=微信公众号支付和H5支付问题记录（一）&body=Check out this article: /2018/07/20/微信公众号支付和H5支付问题记录（一）/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&title=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&title=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&title=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&title=微信公众号支付和H5支付问题记录（一）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=/2018/07/20/微信公众号支付和H5支付问题记录（一）/&name=微信公众号支付和H5支付问题记录（一）&description=&lt;h2 id=&#34;问题描述&#34;&gt;&lt;a href=&#34;#问题描述&#34; class=&#34;headerlink&#34; title=&#34;问题描述&#34;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;开发项目的过程中发现，微信支付分很多种，其中两种是本次会提到的：&lt;code&gt;H5 支付&lt;/code&gt;和&lt;code&gt;公众号支付&lt;/code&gt;。在微信外面打开的网页可以用&lt;code&gt;H5 支付&lt;/code&gt;，在微信里面打开该网页的时候只能使用&lt;code&gt;公众号支付&lt;/code&gt;。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
