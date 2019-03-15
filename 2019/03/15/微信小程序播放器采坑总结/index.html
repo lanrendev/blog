@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="基本使用1、获取全局播放器 1234const audio = wx.getBackgroundAudioManager()// 基础库 1.2.0 开始支持，低版本需做兼容处理。// 如果需要启动后台播放，在 app.json 文件配置&quot;requiredBackgroundModes&quot;: [&quot;audio&quot;] 2、基本属性介绍 1、src(播放源)    audio.src = &amp;apos;htt">
+<meta name="keywords" content="小程序,播放器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序播放器采坑总结">
+<meta property="og:url" content="/2019/03/15/微信小程序播放器采坑总结/index.html">
+<meta property="og:site_name" content="LANRENDEV">
+<meta property="og:description" content="基本使用1、获取全局播放器 1234const audio = wx.getBackgroundAudioManager()// 基础库 1.2.0 开始支持，低版本需做兼容处理。// 如果需要启动后台播放，在 app.json 文件配置&quot;requiredBackgroundModes&quot;: [&quot;audio&quot;] 2、基本属性介绍 1、src(播放源)    audio.src = &amp;apos;htt">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-03-15T04:10:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信小程序播放器采坑总结">
+<meta name="twitter:description" content="基本使用1、获取全局播放器 1234const audio = wx.getBackgroundAudioManager()// 基础库 1.2.0 开始支持，低版本需做兼容处理。// 如果需要启动后台播放，在 app.json 文件配置&quot;requiredBackgroundModes&quot;: [&quot;audio&quot;] 2、基本属性介绍 1、src(播放源)    audio.src = &amp;apos;htt">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="https://www.gravatar.com/avatar/3b7f6a925214a86bed60d269fd6f5b91?s=16">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="https://www.gravatar.com/avatar/3b7f6a925214a86bed60d269fd6f5b91?s=192" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="https://www.gravatar.com/avatar/3b7f6a925214a86bed60d269fd6f5b91?s=180">
+          
+        
+    
+    <!-- title -->
+    <title>微信小程序播放器采坑总结</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/blog/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/blog/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/blog/">Home</a></li>
+         
+          <li><a href="/blog/about/">About</a></li>
+         
+          <li><a href="/blog/archives/">Writing</a></li>
+         
+          <li><a href="/blog/project/">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/blog/2018/09/13/解决Nuxt项目中发生在服务端的请求丢失Cookie的问题/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=/2019/03/15/微信小程序播放器采坑总结/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=/2019/03/15/微信小程序播放器采坑总结/&text=微信小程序播放器采坑总结"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=/2019/03/15/微信小程序播放器采坑总结/&title=微信小程序播放器采坑总结"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=/2019/03/15/微信小程序播放器采坑总结/&is_video=false&description=微信小程序播放器采坑总结"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=微信小程序播放器采坑总结&body=Check out this article: /2019/03/15/微信小程序播放器采坑总结/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=/2019/03/15/微信小程序播放器采坑总结/&title=微信小程序播放器采坑总结"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=/2019/03/15/微信小程序播放器采坑总结/&title=微信小程序播放器采坑总结"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=/2019/03/15/微信小程序播放器采坑总结/&title=微信小程序播放器采坑总结"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=/2019/03/15/微信小程序播放器采坑总结/&title=微信小程序播放器采坑总结"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=/2019/03/15/微信小程序播放器采坑总结/&name=微信小程序播放器采坑总结&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本使用"><span class="toc-number">1.</span> <span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#播放器坑点介绍"><span class="toc-number">2.</span> <span class="toc-text">播放器坑点介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#播放器设计"><span class="toc-number">3.</span> <span class="toc-text">播放器设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本次播放器的不足"><span class="toc-number">4.</span> <span class="toc-text">本次播放器的不足</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        微信小程序播放器采坑总结
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">LANRENDEV</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-03-15T02:08:31.000Z" itemprop="datePublished">2019-03-15</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/blog/tags/小程序/">小程序</a>, <a class="tag-link" href="/blog/tags/播放器/">播放器</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>1、获取全局播放器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> audio = wx.getBackgroundAudioManager()</span><br><span class="line"><span class="comment">// 基础库 1.2.0 开始支持，低版本需做兼容处理。</span></span><br><span class="line"><span class="comment">// 如果需要启动后台播放，在 app.json 文件配置</span></span><br><span class="line"><span class="string">"requiredBackgroundModes"</span>: [<span class="string">"audio"</span>]</span><br></pre></td></tr></table></figure>
+<p>2、基本属性介绍</p>
+<pre><code>1、src(播放源)
+   audio.src = &apos;https://xxx.mp3&apos; // 设置播放源，设置后会自动播放，无法停止（除非手动停止）
+
+2、startTime(开始播放位置)
+   audio.startTime = number // 对于播放记录非常有用，该属性必须在设置src后设置才生效
+   ps: 设置以后再切换章节时记的重置为0，否则一直会从number出开始播放
+
+3、property(播放器信息属性)
+   audio.coverImgUrl = &apos;资源封面&apos;
+   audio.singer = &apos;播音者&apos;
+   audio.title = &apos;章节名称&apos;
+   audio.epname = &apos;资源名称（书籍 或 节目）&apos;
+   // 一般设置这4个属性就够了，这4个属性是给微信提供的系统播放器使用的
+</code></pre><p>3、监听方法介绍 </p>
+<pre><code>1、onCanplay: 监听背景音频进入可播放状态事件。但不保证后面可以流畅播放
+
+    audio.onCanplay(() =&gt; {
+        const timer = setInterval(() =&gt; {
+        if (audio.duration !== undefined) {
+          // do someting
+          clearInterval(timer)
+        }
+      }, 100)
+    })
+
+2、onError: 监听背景音频播放错误事件
+
+    该事件在Android与IOS平台的触发略有差异，设置一个无效的地址后，IOS端会立即触发错误事件，Android端并不会立即触发，而是等待一段时间后才会触发，并自动返回
+
+3、onStop: 监听音频停止事件
+
+   触发事件的场景：
+      (1) audio.stop() 
+      (2) 系统播放器关闭按钮
+      (3) 开发工具模拟器音频关闭
+      (4) 切换音频时(坑点)
+   需要注意的问题：
+      (1) 如果此时正在播放一个音频，点击切换另一个音频，此时会触发stop事件，如想要在stop时返回上一页 需要兼容此问题
+</code></pre><h2 id="播放器坑点介绍"><a href="#播放器坑点介绍" class="headerlink" title="播放器坑点介绍"></a>播放器坑点介绍</h2><pre><code>1、 store无法获取新值
+
+    现象：在播放器页设置监听事件后，播放器页出栈，此时的监听逻辑依然会执行，但是会有一些问题，例如 通过系统播放器 更新store状态，此时store会更新，但是监听逻辑获取不到更新后的值（原因不明）
+
+    应对: 目前的hack方法是在每一个页面都加上相应的监听事件，具体可以写在一个组件中，然后全局引用。（不是办法的办法）
+
+2、 监听事件覆盖问题（针对单一事件、不是全部覆盖）
+
+    现象: 播放器页监听onCanplay事件，播放器页出栈，到A页面，A页面也监听onCanplay事件，此时只会触发A页面对应的监听逻辑，播放器页的监听被覆盖
+
+    应对: 此行为并非bug, 做好兼容即可。
+
+3、 audio 与 系统播放器的 （恩怨情仇）
+
+    现象: 本次的小程序项目 播放器相关的疑难bug 十有八九是跟系统播放器的行为有关，在系统播放器与小程序播放器页之间来回切换非常容易出现各种想不到的问题。
+
+    应对: 说实话这个没有什么好的推荐方法，后续如有好的设计，请多多分享。唯一可以说的就是在写逻辑的时候，一定要注意 类型判断、容错处理、兼容各种异常情况，保障变量值正常就已经成功了一大半了。
+</code></pre><h2 id="播放器设计"><a href="#播放器设计" class="headerlink" title="播放器设计"></a>播放器设计</h2><pre><code>本次播放器设计是通过场景值来实现, 具体为
+
+1. 资源详情页进入---正常行为
+2. 我的页（收听记录）进入---从指定位置开始播放
+3. mini播放器（暂停）进入---类似2但是需要保持暂停状态
+4. mini播放器（正在播放）进入---继续播放
+5. 分享落地页进入 --- 同1
+
+播放器页通过不同的scene值来实现不同的行为
+</code></pre><h2 id="本次播放器的不足"><a href="#本次播放器的不足" class="headerlink" title="本次播放器的不足"></a>本次播放器的不足</h2><pre><code>1、页面会有卡顿的现象（可能跟内容有关系，需要后续逐步优化）
+2、播放器与详情页的页面栈设计不是很好，虽然基本功能已经实现，但是在一些非旗舰机使用上离 喜马拉雅lite 还有差距。（需要更好的设计）
+3、收听记录模式，本次的收听记录全部存在storage里，登录后才会同步一次。这种模式还有待商榷。
+   顺便吐槽一句：存在ID相同的书籍和节目（简直没想到，后来唯一键改用ID与type两个来确定）
+4、总的来说还是可以的，但是改进的空间也是相当的大。
+</code></pre>
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/blog/">Home</a></li>
+         
+          <li><a href="/blog/about/">About</a></li>
+         
+          <li><a href="/blog/archives/">Writing</a></li>
+         
+          <li><a href="/blog/project/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本使用"><span class="toc-number">1.</span> <span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#播放器坑点介绍"><span class="toc-number">2.</span> <span class="toc-text">播放器坑点介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#播放器设计"><span class="toc-number">3.</span> <span class="toc-text">播放器设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本次播放器的不足"><span class="toc-number">4.</span> <span class="toc-text">本次播放器的不足</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=/2019/03/15/微信小程序播放器采坑总结/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=/2019/03/15/微信小程序播放器采坑总结/&text=微信小程序播放器采坑总结"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=/2019/03/15/微信小程序播放器采坑总结/&title=微信小程序播放器采坑总结"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=/2019/03/15/微信小程序播放器采坑总结/&is_video=false&description=微信小程序播放器采坑总结"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=微信小程序播放器采坑总结&body=Check out this article: /2019/03/15/微信小程序播放器采坑总结/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=/2019/03/15/微信小程序播放器采坑总结/&title=微信小程序播放器采坑总结"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=/2019/03/15/微信小程序播放器采坑总结/&title=微信小程序播放器采坑总结"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=/2019/03/15/微信小程序播放器采坑总结/&title=微信小程序播放器采坑总结"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=/2019/03/15/微信小程序播放器采坑总结/&title=微信小程序播放器采坑总结"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=/2019/03/15/微信小程序播放器采坑总结/&name=微信小程序播放器采坑总结&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 lrts
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/blog/">Home</a></li>
+         
+          <li><a href="/blog/about/">About</a></li>
+         
+          <li><a href="/blog/archives/">Writing</a></li>
+         
+          <li><a href="/blog/project/">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/blog/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/blog/lib/jquery/jquery.min.js"></script>
+<script src="/blog/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/blog/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
