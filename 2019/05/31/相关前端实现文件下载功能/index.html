@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="1、通过window.open()打开新页面下载文件1window.open(`/ajax/common/exportAudioRejectReason?$&amp;#123;parseParams(params)&amp;#125;`, &apos;_self&apos;) 使用场景：下载excel文件，后端提供接口，接口返回的是文件流，可以直接使用window.open()，最简单的方式。 优点：最简洁； 弊端：当参数错误时，或">
+<meta name="keywords" content="文件下载,批量下载,jszip,file-saver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="相关前端实现文件下载功能">
+<meta property="og:url" content="/2019/05/31/相关前端实现文件下载功能/index.html">
+<meta property="og:site_name" content="LANRENDEV">
+<meta property="og:description" content="1、通过window.open()打开新页面下载文件1window.open(`/ajax/common/exportAudioRejectReason?$&amp;#123;parseParams(params)&amp;#125;`, &apos;_self&apos;) 使用场景：下载excel文件，后端提供接口，接口返回的是文件流，可以直接使用window.open()，最简单的方式。 优点：最简洁； 弊端：当参数错误时，或">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-05-31T10:13:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="相关前端实现文件下载功能">
+<meta name="twitter:description" content="1、通过window.open()打开新页面下载文件1window.open(`/ajax/common/exportAudioRejectReason?$&amp;#123;parseParams(params)&amp;#125;`, &apos;_self&apos;) 使用场景：下载excel文件，后端提供接口，接口返回的是文件流，可以直接使用window.open()，最简单的方式。 优点：最简洁； 弊端：当参数错误时，或">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="https://www.gravatar.com/avatar/3b7f6a925214a86bed60d269fd6f5b91?s=16">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="https://www.gravatar.com/avatar/3b7f6a925214a86bed60d269fd6f5b91?s=192" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="https://www.gravatar.com/avatar/3b7f6a925214a86bed60d269fd6f5b91?s=180">
+          
+        
+    
+    <!-- title -->
+    <title>相关前端实现文件下载功能</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/blog/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/blog/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/blog/">Home</a></li>
+         
+          <li><a href="/blog/about/">About</a></li>
+         
+          <li><a href="/blog/archives/">Writing</a></li>
+         
+          <li><a href="/blog/project/">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/blog/2019/03/15/微信小程序播放器采坑总结/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=/2019/05/31/相关前端实现文件下载功能/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=/2019/05/31/相关前端实现文件下载功能/&text=相关前端实现文件下载功能"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=/2019/05/31/相关前端实现文件下载功能/&title=相关前端实现文件下载功能"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=/2019/05/31/相关前端实现文件下载功能/&is_video=false&description=相关前端实现文件下载功能"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=相关前端实现文件下载功能&body=Check out this article: /2019/05/31/相关前端实现文件下载功能/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=/2019/05/31/相关前端实现文件下载功能/&title=相关前端实现文件下载功能"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=/2019/05/31/相关前端实现文件下载功能/&title=相关前端实现文件下载功能"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=/2019/05/31/相关前端实现文件下载功能/&title=相关前端实现文件下载功能"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=/2019/05/31/相关前端实现文件下载功能/&title=相关前端实现文件下载功能"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=/2019/05/31/相关前端实现文件下载功能/&name=相关前端实现文件下载功能&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、通过window-open-打开新页面下载文件"><span class="toc-number">1.</span> <span class="toc-text">1、通过window.open()打开新页面下载文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、通过a标签打开新页面下载文件"><span class="toc-number">2.</span> <span class="toc-text">2、通过a标签打开新页面下载文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、通过文件流的方式下载"><span class="toc-number">3.</span> <span class="toc-text">3、通过文件流的方式下载</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#（1）、获取文件"><span class="toc-number">3.1.</span> <span class="toc-text">（1）、获取文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（2）、保存文件"><span class="toc-number">3.2.</span> <span class="toc-text">（2）、保存文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、如何实现批量下载，且打包文件"><span class="toc-number">4.</span> <span class="toc-text">4、如何实现批量下载，且打包文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-、获取文件"><span class="toc-number">4.1.</span> <span class="toc-text">(1)、获取文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-、打包文件"><span class="toc-number">4.2.</span> <span class="toc-text">(2)、打包文件</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        相关前端实现文件下载功能
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">LANRENDEV</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-05-31T10:01:21.000Z" itemprop="datePublished">2019-05-31</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/blog/tags/file-saver/">file-saver</a>, <a class="tag-link" href="/blog/tags/jszip/">jszip</a>, <a class="tag-link" href="/blog/tags/批量下载/">批量下载</a>, <a class="tag-link" href="/blog/tags/文件下载/">文件下载</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h4 id="1、通过window-open-打开新页面下载文件"><a href="#1、通过window-open-打开新页面下载文件" class="headerlink" title="1、通过window.open()打开新页面下载文件"></a>1、通过window.open()打开新页面下载文件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.open(<span class="string">`/ajax/common/exportAudioRejectReason?<span class="subst">$&#123;parseParams(params)&#125;</span>`</span>, <span class="string">'_self'</span>)</span><br></pre></td></tr></table></figure>
+<p>使用场景：下载excel文件，后端提供接口，接口返回的是文件流，可以直接使用<code>window.open()</code>，最简单的方式。</p>
+<p>优点：最简洁；</p>
+<p>弊端：当参数错误时，或其它原因导致接口请求失败，这时无法监听到接口返回的错误信息，需要保证请求必须是正确的且能正确返回数据流，不然打开页面会直接输出接口返回的错误信息，体验不好。</p>
+<h4 id="2、通过a标签打开新页面下载文件"><a href="#2、通过a标签打开新页面下载文件" class="headerlink" title="2、通过a标签打开新页面下载文件"></a>2、通过<code>a</code>标签打开新页面下载文件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> exportFile = <span class="function">(<span class="params">url, fileName</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>)</span><br><span class="line">  <span class="keyword">const</span> body = <span class="built_in">document</span>.querySelector(<span class="string">'body'</span>)</span><br><span class="line"></span><br><span class="line">  link.href = url</span><br><span class="line">  link.download = fileName</span><br><span class="line"></span><br><span class="line">  <span class="comment">// fix Firefox</span></span><br><span class="line">  link.style.display = <span class="string">'none'</span></span><br><span class="line">  body.appendChild(link)</span><br><span class="line"></span><br><span class="line">  link.click()</span><br><span class="line">  body.removeChild(link)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过<code>a</code>标签下载的方式，同<code>window.open()</code>是一样的，唯一的优点是可以自定义下载后的文件名，<code>a</code>标签里有<code>download</code>属性可以自定义文件名。</p>
+<p>弊端：同window.open()方式一样，无法监听错误信息。</p>
+<p>问题：以上两种方式，当在下载<code>.mp3</code>格式，或者视频文件时，浏览器会直接播放该文件，而达不到直接下载的功能，此时，当下载音视频文件时无法使用以上两种方式。</p>
+<h4 id="3、通过文件流的方式下载"><a href="#3、通过文件流的方式下载" class="headerlink" title="3、通过文件流的方式下载"></a>3、通过文件流的方式下载</h4><p>为了解决<code>.mp3</code>文件下载所带来的问题，通过ajax请求返回<code>Blob</code>对象，或者<code>ArrayBuffer</code>对象。</p>
+<h5 id="（1）、获取文件"><a href="#（1）、获取文件" class="headerlink" title="（1）、获取文件"></a>（1）、获取文件</h5><p>如下：通过原生ajax请求返回<code>Blob</code>对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getBlob = <span class="function">(<span class="params">url</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line"></span><br><span class="line">    xhr.open(<span class="string">'GET'</span>, url, <span class="literal">true</span>)</span><br><span class="line">    xhr.responseType = <span class="string">'blob'</span></span><br><span class="line">    xhr.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">        resolve(xhr.response)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    xhr.send()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样，也可以通过axios返回<code>ArrayBuffer</code>对象，同等作用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"><span class="keyword">const</span> getFile = <span class="function"><span class="params">url</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        axios(&#123;</span><br><span class="line">            method:<span class="string">'get'</span>,</span><br><span class="line">            url,</span><br><span class="line">            responseType: <span class="string">'arraybuffer'</span></span><br><span class="line">        &#125;).then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(data.data)</span><br><span class="line">        &#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">            reject(error.toString())</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>ArrayBuffer(又称类型化数组)</strong></p>
+<blockquote>
+<p>ArrayBuffer对象用来表示通用的、固定长度的原始二进制数据缓冲区。ArrayBuffer 不能直接操作，而是要通过类型数组对象或 DataView 对象来操作，它们会将缓冲区中的数据表示为特定的格式，并通过这些格式来读写缓冲区的内容。</p>
+</blockquote>
+<p><strong>Blob（Binary Large Object）： 二进制大数据对象</strong></p>
+<blockquote>
+<p>Blob 对象表示一个不可变、原始数据的类文件对象。Blob 表示的不一定是JavaScript原生格式的数据。File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。</p>
+</blockquote>
+<p><strong>注意：</strong></p>
+<blockquote>
+<p>如果下载文件是文本类型的(如: .txt, .js之类的), 那么用responseType: ‘text’也可以, 但是如果下载的文件是图片, 视频之类的, 就得用arraybuffer或blob，更多详情请<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/responseType" target="_blank" rel="noopener">查看MDN</a></p>
+</blockquote>
+<p>通过ajax请求的方式下载文件，可以解决第1、2中存在的弊端，当请求错误时或捕获到错误信息</p>
+<h5 id="（2）、保存文件"><a href="#（2）、保存文件" class="headerlink" title="（2）、保存文件"></a>（2）、保存文件</h5><p>当获取到文件后，这时需要保存文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> saveAs = <span class="function">(<span class="params">blob, filename</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">window</span>.navigator.msSaveOrOpenBlob) &#123;</span><br><span class="line">    navigator.msSaveBlob(blob, filename)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>)</span><br><span class="line">    <span class="keyword">const</span> body = <span class="built_in">document</span>.querySelector(<span class="string">'body'</span>)</span><br><span class="line"></span><br><span class="line">    link.href = <span class="built_in">window</span>.URL.createObjectURL(blob) <span class="comment">// 创建对象url</span></span><br><span class="line">    link.download = filename</span><br><span class="line"></span><br><span class="line">    <span class="comment">// fix Firefox</span></span><br><span class="line">    link.style.display = <span class="string">'none'</span></span><br><span class="line">    body.appendChild(link)</span><br><span class="line"></span><br><span class="line">    link.click()</span><br><span class="line">    body.removeChild(link)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">window</span>.URL.revokeObjectURL(link.href) <span class="comment">// 通过调用 URL.createObjectURL() 创建的 URL 对象</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>为了解决IE(ie10 - 11)和Edge无法打开Blob URL链接的方法，微软自己有一套方法<code>window.navigator.msSaveOrOpenBlob(blob, filename)</code>，打开并保存文件，以上代码做了简单的兼容，<code>navigator.msSaveBlob(blob, filename)</code>是直接保存。注意，此为非标准功能，详情请查看<a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/msSaveOrOpenBlob" target="_blank" rel="noopener">相关文档</a>。</p>
+</blockquote>
+<p><strong>以下为完整代码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">const getBlob = (url) =&gt; &#123;</span><br><span class="line">  return new Promise((resolve) =&gt; &#123;</span><br><span class="line">    const xhr = new XMLHttpRequest()</span><br><span class="line"></span><br><span class="line">    xhr.open(&apos;GET&apos;, url, true)</span><br><span class="line">    xhr.responseType = &apos;blob&apos;</span><br><span class="line">    xhr.onload = () =&gt; &#123;</span><br><span class="line">      if (xhr.status === 200) &#123;</span><br><span class="line">        resolve(xhr.response)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    xhr.send()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const saveAs = (blob, filename) =&gt; &#123;</span><br><span class="line">  if (window.navigator.msSaveOrOpenBlob) &#123;</span><br><span class="line">    navigator.msSaveBlob(blob, filename)</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    const link = document.createElement(&apos;a&apos;)</span><br><span class="line">    const body = document.querySelector(&apos;body&apos;)</span><br><span class="line"></span><br><span class="line">    link.href = window.URL.createObjectURL(blob) // 创建对象url</span><br><span class="line">    link.download = filename</span><br><span class="line"></span><br><span class="line">    // fix Firefox</span><br><span class="line">    link.style.display = &apos;none&apos;</span><br><span class="line">    body.appendChild(link)</span><br><span class="line"></span><br><span class="line">    link.click()</span><br><span class="line">    body.removeChild(link)</span><br><span class="line"></span><br><span class="line">    window.URL.revokeObjectURL(link.href) // 通过调用 URL.createObjectURL() 创建的 URL 对象</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export const download = (url, filename = &apos;&apos;) =&gt; &#123;</span><br><span class="line">  getBlob(url).then((blob) =&gt; &#123;</span><br><span class="line">    saveAs(blob, filename)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4、如何实现批量下载，且打包文件"><a href="#4、如何实现批量下载，且打包文件" class="headerlink" title="4、如何实现批量下载，且打包文件"></a>4、如何实现批量下载，且打包文件</h4><p>在第3点的基础上，如果要实现批量下载，那能做到的只是连续多次调用<code>download</code>方法，这样无法批量集中的下载文件。这个时候就需要能够对已获取到的文件流，进行一个打包的操作，然后一次下载完毕。</p>
+<p>这时，需要用到两个库<code>jszip</code> 和 <code>file-saver</code></p>
+<p>完整的思路，通过<code>ajax</code>获取文件，然后用 <code>jszip</code> 压缩文件, 再用 <code>file-saver</code> 生成文件</p>
+<h5 id="1-、获取文件"><a href="#1-、获取文件" class="headerlink" title="(1)、获取文件"></a>(1)、获取文件</h5><p>同<a href="#1-获取文件">第3点中的第（1）点</a></p>
+<h5 id="2-、打包文件"><a href="#2-、打包文件" class="headerlink" title="(2)、打包文件"></a>(2)、打包文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">export const download = () =&gt; &#123;</span><br><span class="line">  const urls = [&apos;url&apos;, &apos;url&apos;]   //需要下载的路径</span><br><span class="line">  const zip = new JSZip()</span><br><span class="line">  const cache = &#123;&#125;</span><br><span class="line">  const promises = []</span><br><span class="line">  urls.forEach((item) =&gt; &#123;</span><br><span class="line">    const promise = getBlob(item).then((data) =&gt; &#123; // 下载文件, 并存成ArrayBuffer对象</span><br><span class="line">      zip.file(&apos;下载文件名&apos;, data, &#123; binary: true &#125;) // 逐个添加文件</span><br><span class="line">      cache[item.fileName] = data</span><br><span class="line">    &#125;)</span><br><span class="line">    promises.push(promise)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  Promise.all(promises).then(() =&gt; &#123;</span><br><span class="line">    zip.generateAsync(&#123; type: &apos;blob&apos; &#125;).then((content) =&gt; &#123; // 生成二进制流</span><br><span class="line">      FileSaver.saveAs(content, `打包下载.zip`) // 利用file-saver保存文件</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相关于jszip/file-saver更多详情</p>
+<p><strong>jszip:</strong> </p>
+<p><a href="https://github.com/Stuk/jszip" target="_blank" rel="noopener">https://github.com/Stuk/jszip</a></p>
+<p><a href="http://stuk.github.io/jszip/documentation/examples.html" target="_blank" rel="noopener">http://stuk.github.io/jszip/documentation/examples.html</a></p>
+<p><strong>file-saver:</strong> </p>
+<p><a href="https://github.com/eligrey/FileSaver.js" target="_blank" rel="noopener">https://github.com/eligrey/FileSaver.js</a></p>
+<p><strong>贴上完整代码</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取文件</span></span><br><span class="line"><span class="comment"> * @param url</span></span><br><span class="line"><span class="comment"> * @returns &#123;Promise&lt;any&gt;&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> getBlob = <span class="function">(<span class="params">url</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line"></span><br><span class="line">    xhr.open(<span class="string">'GET'</span>, url, <span class="literal">true</span>)</span><br><span class="line">    xhr.responseType = <span class="string">'blob'</span></span><br><span class="line">    xhr.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">        resolve(xhr.response)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    xhr.send()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 批量打包zip包下载</span></span><br><span class="line"><span class="comment"> * @param url Array [&#123;url: 下载文件的路径, fileName: 下载文件名称&#125;]</span></span><br><span class="line"><span class="comment"> * @param filename zip文件名</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> download = <span class="function">(<span class="params">url, filename = <span class="string">''</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!url.length &gt; <span class="number">0</span>) <span class="keyword">return</span></span><br><span class="line">  <span class="keyword">const</span> data = url </span><br><span class="line">  <span class="keyword">const</span> zip = <span class="keyword">new</span> JSZip()</span><br><span class="line">  <span class="keyword">const</span> cache = &#123;&#125;</span><br><span class="line">  <span class="keyword">const</span> promises = []</span><br><span class="line">  data.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> promise = getBlob(item.url).then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123; <span class="comment">// 下载文件, 并存成ArrayBuffer对象</span></span><br><span class="line">      zip.file(item.fileName, data, &#123; <span class="attr">binary</span>: <span class="literal">true</span> &#125;) <span class="comment">// 逐个添加文件</span></span><br><span class="line">      cache[item.fileName] = data</span><br><span class="line">    &#125;)</span><br><span class="line">    promises.push(promise)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">Promise</span>.all(promises).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    zip.generateAsync(&#123; <span class="attr">type</span>: <span class="string">'blob'</span> &#125;).then(<span class="function">(<span class="params">content</span>) =&gt;</span> &#123; <span class="comment">// 生成二进制流</span></span><br><span class="line">      FileSaver.saveAs(content, <span class="string">`<span class="subst">$&#123;filename&#125;</span>.zip`</span>) <span class="comment">// 利用file-saver保存文件</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong></p>
+<blockquote>
+<p>由于通过浏览器进行打包压缩，如果文件过大，或者下载的内容过多，可能导致浏览器崩溃。</p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/blog/">Home</a></li>
+         
+          <li><a href="/blog/about/">About</a></li>
+         
+          <li><a href="/blog/archives/">Writing</a></li>
+         
+          <li><a href="/blog/project/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、通过window-open-打开新页面下载文件"><span class="toc-number">1.</span> <span class="toc-text">1、通过window.open()打开新页面下载文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、通过a标签打开新页面下载文件"><span class="toc-number">2.</span> <span class="toc-text">2、通过a标签打开新页面下载文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、通过文件流的方式下载"><span class="toc-number">3.</span> <span class="toc-text">3、通过文件流的方式下载</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#（1）、获取文件"><span class="toc-number">3.1.</span> <span class="toc-text">（1）、获取文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（2）、保存文件"><span class="toc-number">3.2.</span> <span class="toc-text">（2）、保存文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、如何实现批量下载，且打包文件"><span class="toc-number">4.</span> <span class="toc-text">4、如何实现批量下载，且打包文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-、获取文件"><span class="toc-number">4.1.</span> <span class="toc-text">(1)、获取文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-、打包文件"><span class="toc-number">4.2.</span> <span class="toc-text">(2)、打包文件</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=/2019/05/31/相关前端实现文件下载功能/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=/2019/05/31/相关前端实现文件下载功能/&text=相关前端实现文件下载功能"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=/2019/05/31/相关前端实现文件下载功能/&title=相关前端实现文件下载功能"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=/2019/05/31/相关前端实现文件下载功能/&is_video=false&description=相关前端实现文件下载功能"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=相关前端实现文件下载功能&body=Check out this article: /2019/05/31/相关前端实现文件下载功能/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=/2019/05/31/相关前端实现文件下载功能/&title=相关前端实现文件下载功能"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=/2019/05/31/相关前端实现文件下载功能/&title=相关前端实现文件下载功能"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=/2019/05/31/相关前端实现文件下载功能/&title=相关前端实现文件下载功能"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=/2019/05/31/相关前端实现文件下载功能/&title=相关前端实现文件下载功能"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=/2019/05/31/相关前端实现文件下载功能/&name=相关前端实现文件下载功能&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 lrts
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/blog/">Home</a></li>
+         
+          <li><a href="/blog/about/">About</a></li>
+         
+          <li><a href="/blog/archives/">Writing</a></li>
+         
+          <li><a href="/blog/project/">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/blog/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/blog/lib/jquery/jquery.min.js"></script>
+<script src="/blog/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/blog/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
